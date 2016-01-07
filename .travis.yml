@@ -15,12 +15,16 @@ install:
 - pip install git+https://github.com/googlefonts/fontbakery.git
 before_script:
 - mkdir -p builds/$TRAVIS_COMMIT
-script: (set -o pipefail; PATH=/home/travis/virtualenv/python2.7.9/bin/:$PATH fontbakery-build.py . 2>&1 | tee -a    builds/$TRAVIS_COMMIT/buildlog.txt)
+script: (set -o pipefail; PATH=/home/travis/virtualenv/python2.7.9/bin/:$PATH fontbakery-build.py
+  . 2>&1 | tee -a    builds/$TRAVIS_COMMIT/buildlog.txt)
 after_script:
 - PATH=/home/travis/virtualenv/python2.7.9/bin/:$PATH fontbakery-report.py builds/$TRAVIS_COMMIT
 - rm -rf builds/$TRAVIS_COMMIT/sources
 - rm -rf builds/$TRAVIS_COMMIT/build.state.yaml
 - PATH=/home/travis/virtualenv/python2.7.9/bin/:$PATH fontbakery-travis-deploy.py
 branches:
- only:
- - master
+  only:
+  - master
+env:
+  global:
+    secure: rSYyH9sHE4N4xHvu1nyr8f+m6o+52O93Q7Ln6Abjf7cPQDXpgrfWpw9o77yDneXxUd+/sCf5pV3hZO7TiuzzikHGxqJflyot1ANbKruRJtmE4qo5rOLO/H621uFD/68+/yAn4zWNWdvV1K3imxq1KfFqk71JTVRw2GwVGhlOJr+Zdto7YwA1D2k8K3V3GQ5Q9QzKDAR49zRS9YzfQ7r2d1ZKcvS8t0n90g0u34Wmyi65UZUNb0hCWvQySy0A9ElfhCUEdXXLCbFq8LbhVh8cYuqDDNgmNO+Hp5Kp23LR44uEEDSclyX2LfgTpVJ5klr7mKTwfMZ+2tyHis1UHReabTX5jl+R+EM1gpYBPXQquEGPN7IkoRvtGUoR8N6oH+QDqM74f3tsUsgqVYlRweGKRYeczuZFtWLlnnwwzAxe5eFk7gikwcipVS/LjdJYNmi1xCRzXMb4l/lVFNIZvXiCbBLmZvQW59QRfR4JnA9wTOqdBlbYb8TiX7sp+i0grLKC2TJMHrzQSjSm4Ge41+iIi3LxLPGRJ8tDl1Su734Xt/oL130USkhA3ebvoeUI5Q/C429x+e71d1Ylb9fPqu49LGye1g5WlWilfxSco/Z/NH5yDf0tBgDRAneTYMqTIpAbhUTnG7eM2TcJuVhAoMIJkY4KIkDjNYzJf+R0UMT7ZaQ=
